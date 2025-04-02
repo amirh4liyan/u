@@ -1,0 +1,6 @@
+#!/bin/bash
+
+VAR_1=$(ls -lt | grep ".cpp" | awk '{print $9}' | head -n 1)
+g++ $VAR_1 -o prog
+./prog < input.txt
+rm -f prog
