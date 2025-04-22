@@ -5,31 +5,76 @@
 
 using namespace std;
 
-vector<int> per;
+long long result = 0;
+vector<int> indexes(300005);
+
+void mergeSort(int arr[], int left, int right);
+void compare(int arr[], int left, int mid, int right);
 
 int main()
 {
 	int n;
-	cin >> n; // O(1)
+	cin >> n;
 
-	int x;
-	for (int i = 0; i < n; i++) // O(n)
+	int per[n];
+	for (int i = 0; i < n; i++)
 	{
-		cin >> x; // O(1)
-		per.push_back(x); // O(1)
+		cin >> per[i];
+		indexes[per[i]] = i;
 	}
 
-	int ans = 0;
-	for (int i = 0; i < n; i++) // O(n^2)
+	mergeSort(per, 0, n - 1);
+
+	cout << result;
+	return 0;
+}
+
+void mergeSort(int arr[], int left, int right)
+{
+	if (left < right)
 	{
-		for (int j = i+1; j < n; j++)
+		int mid = left + (right - left) / 2;
+		mergeSort(arr, left, mid);
+		mergeSort(arr, mid + 1, right);
+
+		compare(arr, left, mid, right);
+	}
+}
+
+void compare(int arr[], int left, int mid, int right)
+{
+	int n1 = mid - left + 1;
+	int n2 = right - mid;
+
+	int L[n1], R[n2];
+	long long prefix_sum[n1 + 1];
+	prefix_sum[0] = 0;
+
+	for (int i = 0; i < n1; ++i)
+	{
+		L[i] = arr[left + i];
+		prefix_sum[i + 1] = prefix_sum[i] + indexes[L[i]];
+	}
+
+	for (int j = 0; j < n2; ++j)
+	{
+		R[j] = arr[mid + 1 + j];
+	}
+
+	int i = 0, j = 0, k = left;
+	while (i < n1 && j < n2)
+	{
+		if (L[i] > R[j])
 		{
-			if (per[i] > per[j]) // O(1)
-			{
-				ans += j - i; // O(1)
-			}
+			long long cnt = n1 - i;
+			long long sum_L = prefix_sum[n1] - prefix_sum[i];
+			result += ( (long long)indexes[R[j]] * cnt ) - sum_L;
+			arr[k++] = R[j++];
+		} else {
+			arr[k++] = L[i++];
 		}
 	}
-	cout << ans; // O(1)
-	return 0;
+
+	while (i < n1) arr[k++] = L[i++];
+	while (j < n2) arr[k++] = R[j++];
 }
