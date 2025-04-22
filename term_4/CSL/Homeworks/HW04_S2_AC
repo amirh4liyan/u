@@ -1,0 +1,15 @@
+LOAD E
+MUL F       # AC = E*F
+STORE T1    # T1 = E*F
+LOAD C
+SUB D       # AC = C-D
+STORE T2    # T2 = C-D
+LOAD A
+ADD B       # AC = A+B
+MUL T2      # AC = (A+B)(C-D)
+ADD T1      # AC = (A+B)(C-D) + (E*F)
+DIV F       # AC = [(A+B)(C-D) + (E*F)] / F
+STORE T3    # T3 = [(A+B)(C-D) + (E*F)] / F
+LOAD A
+SUB T3      # AC = A - T3
+STORE Y     # Y = AC
