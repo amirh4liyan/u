@@ -1,0 +1,14 @@
+\contentsline {section}{\numberline {1}چکیده}{2}{section.1}%
+\contentsline {subsection}{\numberline {1.1}هدف آزمایش}{2}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}قطعات و ابزار ها}{2}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}پاسخ سوال 1}{2}{subsection.1.3}%
+\contentsline {subsection}{\numberline {1.4}پاسخ سوال 2}{2}{subsection.1.4}%
+\contentsline {section}{\numberline {2}توضیح IC ها}{3}{section.2}%
+\contentsline {subsection}{\numberline {2.1}توضیح 74374 IC}{3}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}توضیح 74153 IC}{4}{subsection.2.2}%
+\contentsline {section}{\numberline {3}اتصال قطعات و شماتیک مدار}{5}{section.3}%
+\contentsline {subsection}{\numberline {3.1}شکل اولیه}{5}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}شکل ثانویه ( پاسخ سوال 3)}{5}{subsection.3.2}%
+\contentsline {section}{\numberline {4}نتایج}{6}{section.4}%
+\contentsline {subsection}{\numberline {4.1}نتایج شبیه سازی}{6}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}نتایج آزمایش عملی}{7}{subsection.4.2}%
