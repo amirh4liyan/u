@@ -1,0 +1,84 @@
+# (2x + y)
+push 2
+push x
+mul
+push y
+add
+
+# (x - 2y)
+push -2
+push y
+mul
+push x
+add
+
+# (2x + y)(x - 2y)
+mul
+
+# 5z
+push 5
+push z
+mul
+
+# (2x + y)(x - 2y) + 5z
+add
+
+# -w
+push -1
+push w
+mul
+
+# (2x + y)(x - 2y) + 5z - w
+add
+
+# ((2x + y)(x - 2y) + 5z - w)w
+push w
+mul
+
+# ((2x + y)(x - 2y) + 5z - w)wt
+push t
+mul
+
+# -10y
+push -10
+push y
+mul
+
+# The whole Numerator
+# ((2x + y)(x - 2y) + 5z - w)wt - 10y
+add
+
+
+
+
+# 15t
+push 15
+push t
+mul
+
+# -20w
+push -20
+push w
+mul
+
+# 15t - 20w
+add
+
+# xy
+push x
+push y
+mul
+
+# -xy
+push -1
+mul
+
+# The whole Denominator
+# 15t - 20w - xy
+add
+
+
+
+
+# Final
+div

@@ -1,0 +1,14 @@
+LOAD R1, A
+LOAD R2, B
+ADD R2, R1      # R2 = A+B
+LOAD R3, C
+LOAD R4, D
+SUB R3, R4      # R3 = C-D
+MUL R2, R3      # R2 = (A+B)(C-D)
+LOAD R3, E
+LOAD R4, F      # R4 = F
+MUL R3, R4      # R3 = E*F
+ADD R2, R3      # R2 = (A+B)(C-D) + E*F
+DIV R2, R4      # R2 = R2 / F
+SUB R1, R2      # R1 = A - R2
+STORE R1, Y     # Store result in Y

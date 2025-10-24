@@ -1,0 +1,12 @@
+MOV R1, A
+ADD R1, B       # R1 = A+B
+MOV R2, C
+SUB R2, D       # R2 = C-D
+MUL R1, R2      # R1 = (A+B)(C-D)
+MOV R3, E
+MUL R3, F       # R3 = E*F
+ADD R1, R3
+DIV R1, F       # R1 = [(A+B)(C-D) + E*F] / F
+MOV R3, A
+SUB R3, R1      # R3 = A - [(A+B)(C-D) + E*F] / F
+MOV R3, Y       # طبق فرض سوال مجبور بودم اینطور بنویسم وگرنه حس میکنم جای عملوند ها باید برعکس باشه
