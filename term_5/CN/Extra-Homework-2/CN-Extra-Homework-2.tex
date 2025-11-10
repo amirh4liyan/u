@@ -1,0 +1,186 @@
+% Optimized XeLaTeX Lab Report Template
+% Lightweight, clean, and efficient for English reports
+
+\documentclass[a4paper,12pt]{article}
+
+% --- Essential Packages ---
+\usepackage{fontspec} % must come FIRST before minted, polyglossia, etc.
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}      % for images
+\usepackage{caption}       % better captions
+\usepackage{subcaption}    % subfigures
+\usepackage{float}         % control figure placement
+\usepackage{booktabs}      % for tables
+\usepackage{hyperref}      % clickable links
+\usepackage{xcolor}        % color support
+\usepackage{fancyhdr}      % headers and footers
+\usepackage[breakable]{tcolorbox}
+\usepackage{minted}        % for syntax-highlighted code
+
+% --- Font Configuration ---
+\setmainfont{Times New Roman}[
+    BoldFont = {Times New Roman Bold},
+    ItalicFont = {Times New Roman Italic},
+]
+
+% --- Color Definitions ---
+\definecolor{incolor}{HTML}{303F9F}
+\definecolor{outcolor}{HTML}{D84315}
+\definecolor{cellborder}{HTML}{161616}
+\definecolor{mycellborder}{HTML}{303030}
+\definecolor{cellbackground}{HTML}{FFFFFF}
+\definecolor{mycellbackground}{HTML}{3F3F3F}
+\definecolor{mydarkcellbackground}{HTML}{2B2B2B}
+\definecolor{mybackground}{HTML}{000000}
+\definecolor{mytextcolor}{HTML}{FFFFFF}
+\definecolor{engblue}{RGB}{0, 80, 180}
+\definecolor{engred}{RGB}{255, 0, 0}
+\definecolor{enggreen}{RGB}{0, 180, 80}
+\definecolor{red}{RGB}{180, 0, 0}
+
+% --- Macros ---
+\newcommand{\engb}[1]{\textcolor{engblue}{#1}}
+\newcommand{\engr}[1]{\textcolor{engred}{#1}}
+
+% --- Page Style ---
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\thepage}
+\lhead{CN Homeworks}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% --- Basic Formatting ---
+\setlength{\parskip}{0.6em}
+\setlength{\parindent}{0pt}
+
+% --- Title Page ---
+\title{\textbf{Computer Network Extra Homework 2}}
+\author{Amirhossein Alian \\ 4021120017}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\vspace{1cm}
+\tableofcontents
+\newpage
+
+\section{What is \engb{POP3?} (\engr{Post Office Protocol Version 3})}
+
+\textbf{Post Office Protocol Version 3 (POP3)} is a protocol that provides access to the mail inbox stored on an email server. Messages can be downloaded and deleted via the POP3 protocol. Once a POP3 client connects to the mail server, it can quickly retrieve all messages. Even when the user is not connected, they can still view messages locally.
+
+However, POP3 does not inherently support real-time synchronization or automatic checking for new messages. Users can configure their email clients to check for new messages at intervals or manually. Many email programs, including Apple Mail, Gmail, and Microsoft Outlook, support the POP3 protocol, although IMAP is often preferred for its synchronization features.
+
+\subsection{Features of \engb{POP3?}}
+\begin{itemize}
+    \item Emails are kept on a single device.
+    \item Emails can only be accessed by one device.
+    \item Every message sent is stored on the same device.
+    \item To keep emails on the server, users must enable the ``Keep email on server'' option; otherwise, POP3 will erase them once downloaded.
+\end{itemize}
+
+\subsection{Advantages of \engb{POP3?}}
+\begin{itemize}
+    \item Messages can be read offline.
+    \item POP3 uses less storage space on the server.
+    \item It is simple to set up and use.
+    \item Supported by numerous email programs.
+    \item Quick and easy access since emails are stored locally.
+    \item No restriction on the size of sent or received emails.
+    \item Reduced need for server storage capacity because all emails are stored locally.
+\end{itemize}
+
+\subsection{Disadvantages of \engb{POP3?}}
+\begin{itemize}
+    \item Real-time synchronization is not possible.
+    \item Emails with malicious attachments can compromise the system.
+    \item POP3 does not allow simultaneous access on multiple devices.
+    \item Deleting a folder can remove all contained emails at once.
+    \item Downloaded email folders may become corrupted.
+    \item Since emails are stored locally, anyone with access to the computer can read them.
+\end{itemize}
+
+\pagebreak
+\section{What is \engb{IMAP?} (\engr{Internet Message Access Protocol})}
+
+\textbf{Internet Message Access Protocol (IMAP)} is an application-layer protocol that functions as a standard for receiving emails from a mail server. IMAP, currently at version IMAP4, was developed by Mark Crispin in 1986 as a remote access mailbox protocol. It is the most widely used protocol for retrieving emails.  
+
+IMAP is sometimes referred to as the \textit{Interim Mail Access Protocol}, \textit{Interactive Mail Access Protocol}, or \textit{Internet Mail Access Protocol}.  
+IMAP contacts the email provider to access a copy of all recent messages. Once the user downloads them to their device, the emails can remain synchronized across all connected clients and servers, unlike POP3 which deletes them after download.
+
+\subsection{Features of \engb{IMAP}}
+\begin{itemize}
+    \item Every email is stored on the mail server.
+    \item It also stores on the server all messages that are sent or received.
+    \item All of a user's emails can be synchronized and accessed from multiple devices and locations.
+\end{itemize}
+
+\subsection{Advantages of \engb{IMAP}}
+\begin{itemize}
+    \item Provides synchronization between all user sessions and devices.
+    \item Offers better security compared to POP3 since emails are stored on the server.
+    \item Users can access all email contents remotely.
+    \item Simplifies device migration due to centralized synchronization.
+    \item No need for physical storage space on the user’s device.
+\end{itemize}
+
+\subsection{Disadvantages of \engb{IMAP}}
+\begin{itemize}
+    \item Maintenance and configuration are more complex.
+    \item Requires an active internet connection to access emails.
+    \item Message loading can be slower compared to locally stored mail.
+    \item Managing emails that do not support IMAP can be difficult.
+\end{itemize}
+
+\pagebreak
+\section{Difference Between \engb{POP3} and \engb{IMAP}}
+\begin{table}[H]
+\centering
+\caption{Comparison Between POP3 and IMAP}
+\renewcommand{\arraystretch}{1.4}
+\setlength{\tabcolsep}{8pt}
+\begin{tabular}{@{}p{7cm} p{7cm}@{}}
+\toprule
+\textbf{Post Office Protocol (POP3)} & \textbf{Internet Message Access Protocol (IMAP)} \\ 
+\midrule
+POP3 is a simple protocol that only allows downloading messages from the Inbox to the local computer. & IMAP is more advanced and allows users to view and manage all folders directly on the mail server. \\
+
+The POP3 server listens on port 110, while the secure POP3 (POP3S) server listens on port 995. & The IMAP server listens on port 143, while the secure IMAP (IMAPS) server listens on port 993. \\
+
+Mail can only be accessed from a single device at a time. & Messages can be accessed and synchronized across multiple devices. \\
+
+Emails must be downloaded to the local system before they can be read. & Email content can be previewed or read partially before downloading. \\
+
+Users cannot organize mail directly on the server. & Users can organize their emails (create folders, move, or categorize) directly on the mail server. \\
+
+Users cannot create, delete, or rename emails on the mail server. & Users can create, delete, or rename emails directly on the mail server. \\
+
+It is unidirectional — changes made locally do not affect the server. & It is bidirectional — changes on one side (server or device) synchronize automatically. \\
+
+POP3 does not support email synchronization. & IMAP allows full synchronization of emails across devices. \\
+
+POP3 is generally faster. & IMAP is slower due to continuous synchronization and server communication. \\
+
+Users cannot search email content before downloading it. & Users can search for specific text or subjects before downloading messages. \\
+
+POP3 has two modes: \textit{delete mode} and \textit{keep mode}.
+\newline -- Delete mode: mail is deleted after retrieval.
+\newline -- Keep mode: mail remains on the server after retrieval.
+& IMAP maintains multiple redundant copies of messages on the server, allowing recovery even if local data is lost. \\
+
+Changes are made locally and are not reflected on the server. & Changes made via webmail or email client remain synchronized with the server. \\
+
+All messages are downloaded at once. & Message headers can be viewed before downloading full content. \\
+
+\bottomrule
+\end{tabular}
+\end{table}
+
+\pagebreak
+\section*{Resources}
+\begin{itemize}
+    \item https://www.geeksforgeeks.org/computer-networks/differences-between-pop3-and-imap/
+\end{itemize}
+
+\end{document}
