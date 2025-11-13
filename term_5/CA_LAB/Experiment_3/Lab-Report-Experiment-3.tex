@@ -1,0 +1,154 @@
+% Optimized XePersian Lab Report Template
+% Lightweight, clean, and efficient for bilingual reports with Persian/English text and images
+
+\documentclass[a4paper,12pt]{article}
+
+% --- Essential Packages ---
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}      % for images
+\usepackage{caption}       % better captions
+\usepackage{subcaption}    % subfigures
+\usepackage{float}         % control figure placement
+\usepackage{booktabs}      % for tables
+\usepackage{hyperref}      % clickable links
+\usepackage{xcolor}        % color support
+\usepackage{fancyhdr}      % headers and footers
+\usepackage{xepersian}     % Persian/English text support
+
+% --- Font Setup ---
+\settextfont{IRANSans.ttf}
+\settextfont[BoldFont={IRANSans_Medium.ttf}]{IRANSans.ttf}
+\setlatintextfont{Times New Roman}
+\setlatintextfont[BoldFont={Times New Roman Bold}]{Times New Roman}
+
+% --- Page Style ---
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\thepage}
+\lhead{\lr{CA LAB Report}}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% --- Basic Formatting ---
+\setlength{\parskip}{0.6em}
+\setlength{\parindent}{0pt}
+\renewcommand{\figurename}{شکل}
+\renewcommand{\tablename}{جدول}
+\definecolor{engblue}{RGB}{0, 80, 180}
+\definecolor{engred}{RGB}{255, 0, 0}
+\definecolor{enggreen}{RGB}{0, 180, 80}
+\definecolor{green}{RGB}{0, 150, 80}
+\definecolor{red}{RGB}{180, 0, 0}
+\newcommand{\engb}[1]{\textcolor{engblue}{\lr{#1}}}
+\newcommand{\engr}[1]{\textcolor{engred}{\lr{#1}}}
+\newcommand{\engg}[1]{\textcolor{green}{\lr{#1}}}
+
+% --- Title Page ---
+\title{\textbf{\lr{Computer Architecture LAB Report}}}  % Lab Report Title
+\author{امیرحسین عالیان \\\lr{4021120017}\\ امیرمهدی عزیزی \\\lr{4021120019}}
+\date{}
+
+\begin{document}
+
+\maketitle
+\begin{center}
+\textbf{آزمایش سوم}
+\end{center}
+
+\vspace{1cm}
+\begin{center}
+تاریخ انجام آزمایش: 26 مهر 1404\\
+تاریخ تحویل گزارش: 21 آبان 1404
+\end{center}
+\tableofcontents
+\newpage
+
+% ----------------------------
+%   Sections
+% ----------------------------
+\section{چکیده}
+\subsection{هدف آزمایش}
+
+هدف این آزمایش، آشنایی و تجربه عملی با تراشه \engr{6116} و ترکیب آن با \engb{ALU} بود که در واقع یک حافظه \engb{RAM} از نوع \textbf{\rl{\engb{Static} \engb{RAM} - \engr{SRAM}}} است.\\ در این نوع از حافظه ها (\engb{SRAM}) از فلیپ فلاپ برای ذخیره سازی اطلاعات استفاده می شود و با قطع برق اطلاعات آن از بین خواهد رفت.\\
+
+\section{توضیح تراشه 6116}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/6116_Pinouts.jpg}
+    \caption{نمایی از پایه های تراشه 6116}
+    \label{fig:6116}
+\end{figure}
+\vspace*{0.1cm}
+در واقع این \engb{IC} یک تراشه حافظه (\engb{RWM} - \engr{Read Write Memory}) و از نوع \engb{Static} (با فلیپ فلاپ ساخته شده) است دارای \engb{11} خط آدرس دهی و همچنین \engb{8} خط ورودی/خروجی است. در نتیجه \engb{2048} خانه متمایز دارد که هر کدام از این خانه ها قادر به ذخیره یک عدد \engb{8} بیتی است.\\\\
+\textbf{در کل این حافظه یک حافظه ی \engb{2K * 8 BIT = 16K} است}
+
+\pagebreak
+\section{شماتیک و اتصالات مدار}
+\subsection{اتصالات تراشه}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{images/Schematic.pdf}
+    \caption{شماتیک مدار در پروتئوس - \engb{Address} 5 بیتی، \engb{I/O} 4 بیتی}
+    \label{fig:schematic}
+\end{figure}
+\vspace*{0.5cm}
+از آنجایی که فقط به \engb{5} بیت برای آدرس دهی نیاز داریم، دیگر پایه های آدرس را به \textbf{GND} وصل می کنیم همچنین پایه \engr{$\overline{\mathrm{CٍE}}$} که بعضا با نام \engr{$\overline{\mathrm{CٍS}}$} هم در شماتیک ها دیده می شود، پایه فعال ساز قطعه و در منطق \engb{Active-low} است،‌ این پایه در حالی که قصد داشته باشیم به کمک دو یا چند تراشه \engb{6116} حافظه با تعداد خانه یا بیت بزرگتری بسازیم کاربرد دارد و معمولا به عنوان بیت های پر ارزش تر آدرس استفاده می شوند.\\
+در اینجا ما صرفا یک تراشه \engb{6116} را استفاده میکنیم که میخواهیم همواره در حال کار باشد بنابراین این پایه را نیز به \textbf{GND} متصل می کنیم.\\\\
+پایه های \engr{$\overline{\mathrm{WE}}$} و \engr{$\overline{\mathrm{OE}}$} به ترتیب برای نوشتن/خواندن اطلاعات در/از حافظه استفاده می شوند. مشابه پایه \engr{$\overline{\mathrm{CE}}$} این پایه های نیز در منطق \engb{Active-low} کار می کنند به همین منظور در ادامه مدار در جلوی این دو پایه گیت های \textbf{\engb{NOT}} قرار داده ایم تا با آنها در منطق \engb{Active-high} کار کنیم.\\
+در حالتی که هر دو پایه فعال باشند، عمل \engb{Write} اولویت دارد و انجام می شود.\\\\
+پایه های \engr{I/O} دو طرفه هستند و هم به منظور خواندن و هم به منظور نوشتن اطلاعات بکار می روند. این پایه ها در ادامه به \engb{BUS} دو طرفه وصل شده اند تا بتوانیم عمل خواندن و نوشتن را با سهولت بیشتری شبیه سازی کنیم.\\
+\pagebreak
+\subsection{مدار متصل به بخش \engb{I/O} تراشه}
+\begin{figure}[H]
+    \centering
+    \includegraphics[angle=270, width=0.68\textwidth]{images/Out_and_Buff.pdf}
+    \label{fig:schematic}
+\end{figure}
+
+\pagebreak
+\section{نتایج شبیه سازی}
+\subsection{قرار دادن عدد \engb{12} در آدرس \engr{00011} حافظه}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.35\textwidth]{images/Address_and_Input.pdf}
+    \caption{شماتیک مدار در پروتئوس - \engb{Address} 5 بیتی، \engb{I/O} 4 بیتی}
+    \label{fig:schematic}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.3\textwidth]{images/Control_Lines_In.pdf}
+    \caption{خطوط کنترل عملیات نوشتن، خواندن و جهت \engr{BUS}}
+    \label{fig:schematic}
+\end{figure}
+
+\pagebreak
+\subsection{خواندن عدد ذخیره شده از آدرس \engr{00011} حافظه}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.35\textwidth]{images/Control_Lines_Out.pdf}
+    \caption{خطوط کنترل عملیات نوشتن، خواندن و جهت \engr{BUS}}
+    \label{fig:schematic}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.45\textwidth]{images/Outputs.pdf}
+    \caption{خروجی \engr{LED} های متصل به \engb{Output} حافظه}
+    \label{fig:schematic}
+\end{figure}
+
+\pagebreak
+\section{نتایج آزمایش عملی}
+\begin{figure}[H]
+    \centering
+	\includegraphics[angle=180, width=0.8\textwidth]{images/photo_2025-11-13_02-33-22.jpg}
+    \caption{نتیجه آزمایش عملی به ازای نوشتن اطلاعات در حافظه - سیم آبی در حالت \engb{0} قرار دارد که به معنای نوشتن در حافظه است}
+    \label{fig:result1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[angle=90, width=0.8\textwidth]{images/photo_2025-11-13_02-18-18.jpg}
+    \caption{نتیجه آزمایش عملی به ازای خواندن اطلاعات از حافظه - سیم قرمز در حالت \engb{0} قرار دارد که به معنای خواندن از حافظه است}
+    \label{fig:result2}
+\end{figure}
+
+\end{document}
