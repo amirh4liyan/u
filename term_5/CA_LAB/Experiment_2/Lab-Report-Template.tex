@@ -1,0 +1,269 @@
+% Optimized XePersian Lab Report Template
+% Lightweight, clean, and efficient for bilingual reports with Persian/English text and images
+
+\documentclass[a4paper,12pt]{article}
+
+% --- Essential Packages ---
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}      % for images
+\usepackage{caption}       % better captions
+\usepackage{subcaption}    % subfigures
+\usepackage{float}         % control figure placement
+\usepackage{booktabs}      % for tables
+\usepackage{hyperref}      % clickable links
+\usepackage{xcolor}        % color support
+\usepackage{fancyhdr}      % headers and footers
+\usepackage{xepersian}     % Persian/English text support
+
+% --- Font Setup ---
+\settextfont{IRANSans.ttf}
+\settextfont[BoldFont={IRANSans_Medium.ttf}]{IRANSans.ttf}
+\setlatintextfont{Times New Roman}
+\setlatintextfont[BoldFont={Times New Roman Bold}]{Times New Roman}
+
+% --- Page Style ---
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\thepage}
+\lhead{\lr{CA LAB Report}}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% --- Basic Formatting ---
+\setlength{\parskip}{0.6em}
+\setlength{\parindent}{0pt}
+\renewcommand{\figurename}{شکل}
+\renewcommand{\tablename}{جدول}
+\definecolor{engblue}{RGB}{0, 80, 180}
+\definecolor{engred}{RGB}{255, 0, 0}
+\definecolor{enggreen}{RGB}{0, 180, 80}
+\definecolor{green}{RGB}{0, 150, 80}
+\definecolor{red}{RGB}{180, 0, 0}
+\newcommand{\engb}[1]{\textcolor{engblue}{\lr{#1}}}
+\newcommand{\engr}[1]{\textcolor{engred}{\lr{#1}}}
+\newcommand{\engg}[1]{\textcolor{green}{\lr{#1}}}
+
+% --- Title Page ---
+\title{\textbf{\lr{Computer Architecture LAB Report}}}  % Lab Report Title
+\author{امیرحسین عالیان \\\lr{4021120017}\\ امیرمهدی عزیزی \\\lr{4021120019}}
+\date{}
+
+\begin{document}
+
+\maketitle
+\begin{center}
+\textbf{آزمایش دوم}
+\end{center}
+
+\vspace{1cm}
+\begin{center}
+تاریخ انجام آزمایش: 19 مهر 1404\\
+تاریخ تحویل گزارش: 19 آبان 1404
+\end{center}
+\tableofcontents
+\newpage
+
+% ----------------------------
+%   Sections
+% ----------------------------
+\section{چکیده}
+\subsection{هدف آزمایش}
+
+هدف این آزمایش، آشنایی و تجربه عملی با تراشه \engr{74181} بود که در واقع یک واحد حساب و منطق یا همان \engb{ALU} است. این واحد نیز بخشی از پیاده‌سازی مسیر داده (\engb{Datapath}) است که  در ادامه آزمایش اول (طراحی گذرگاه - \engb{BUS}) دنبال میشود.\\
+
+\subsection{قطعات و ابزار ها}
+\begin{latin}
+\begin{LTR}
+\begin{table}[h!]
+	\centering
+	\begin{tabular}{llc}
+	\toprule
+	\textbf{Component} & \textbf{Function} & \textbf{Quantity} \\
+	\midrule
+IC 74181 & 4-bit ALU/Function Generator & \LR{1} \\
+White LED & \engr{$\overline{\mathrm{C\textsubscript{n+4}}}$} (Carry) Indicator & \LR{1} \\
+Green LED & 4-bit \textbf{\engg{F\textsubscript{3}F\textsubscript{2}F\textsubscript{1}F\textsubscript{0}}} (Output) Indicator & \LR{4} \\
+Breadboard & Component Placement & \LR{1} \\
+DC Power Supply & Provides \textbf{\engr{V\textsubscript{CC}}} and \textbf{GND} & \LR{1} \\
+	\bottomrule
+	\end{tabular}
+	\caption{\rl{لیست قطعات مورد استفاده در این آزمایش}}
+	\label{tab:components}
+\end{table}
+\end{LTR}
+\end{latin}
+
+\subsection{جدول نتایج چند تست}
+\begin{center}
+\begin{latin}
+\begin{LTR}
+\begin{table}[H]
+	\centering
+	\begin{tabular}{cccccccccc}
+	\toprule
+	\textbf{S\textsubscript{3}S\textsubscript{2}S\textsubscript{1}S\textsubscript{0}} & \textbf{A\textsubscript{3}A\textsubscript{2}A\textsubscript{1}A\textsubscript{0}} & \textbf{B\textsubscript{3}B\textsubscript{2}B\textsubscript{1}B\textsubscript{0}} & \textbf{M} & \textbf{$\overline{\mathrm{C\textsubscript{n}}}$} & \textbf{$\overline{\mathrm{C\textsubscript{n+4}}}$} & \textbf{F\textsubscript{3}F\textsubscript{2}F\textsubscript{1}F\textsubscript{0}} & \textbf{A=B} & \textbf{P} & \textbf{G} \\
+	\midrule
+0  0  0  1 & 1  0  1  1 & 1  0  0  0 & 1 & 0 & 1 & 0  1  0  0 & 0 & 0 & 0 \\
+0  0  1  1 & 1  0  1  1 & 0  0  1  0 & 0 & 0 & 0 & 0  0  0  0 & 0 & 0 & 1 \\
+0  1  1  0 & 0  1  1  1 & 0  1  1  1 & 0 & 0 &  0 & 0  0  0  0 & 0 & 0 & 1 \\
+1  0  1  0 & 1  1  0  0 & 0  1  0  1 & 0 & 1 & 0 & 0  0  1  0 & 0 & 1 & 1 \\
+	\bottomrule
+	\end{tabular}
+	\caption{\rl{جدول مقادیر خروجی}}
+	\label{tab:components}
+\end{table}
+\end{LTR}
+\end{latin}
+\end{center}
+
+\subsection{پاسخ سوال 1}
+برای انجام عمل خواسته شده باید عدد \engb{4} بیتی \engb{A} را با رشته باینری \engr{1000}، \textbf{\engb{XOR}} کنیم.
+\subsection{پاسخ سوال 2}
+این پایه برای مقایسه دو عدد \engb{A} و \engb{‌B} مورد استفاده قرار میگیرد. برای این منظور باید آنرا در حالت تفریق قرار داد یعنی ورودی \engb{Select} باید برابر با \engr{0110} و مقدار \engr{$\overline{\mathrm{C\textsubscript{n}}}$ = 0} باشد. در صورتی که دو عدد برابر باشند انتظار میرود که این خط خروجی \engr{1} بدهد. با کمک خطوط \engr{$\overline{\mathrm{C\textsubscript{n}}}$} و \engr{$\overline{\mathrm{C\textsubscript{n+4}}}$} میتوان تفسیر دقیق تری درباره اندازه اعداد نسبت به هم (بزرگ و کوچک بودن) ارائه داد.
+
+\subsection{پاسخ سوال 3}
+در منطق \engb{Active-Low} و \engb{Active-High} یک سری تفاوت ها وجود دارد. اولین تفاوت قابل ذکر، تفاوت در توابع منطقی و حسابی است به طوری که برخی توابع صرفا در منطق \engb{Active-Low} و برخی دیگر در منطق \engb{Active-High} قابل استفاده هستند البته برخی توابع بسیار پر کاربرد مانند \engr{A MINUS B} یا \engr{ZERO} در هر دو منطق قابل استفاده هستند.\\\\
+تفاوت دیگر در نحوه عملکرد و خروجی دادن مدار هست برای مثال در منطق \engb{Active-High} خروجی های \lr{\textbf{F\textsubscript{3}F\textsubscript{2}F\textsubscript{1}F\textsubscript{0}}} از نوع \engb{Active-High} خواهند بود و انتظار داریم به ازای بیت های روشن، لامپ ها نیز روشن شوند در حالی که در منطق \engb{Active-Low} دقیقا برعکس است. جدول 3 در زیر به جزئیات تفاوت پین ها در دو منطق اشاره میکند:\\
+\vspace*{0.5cm}
+\begin{latin}
+\begin{LTR}
+\begin{table}[h!]
+\centering
+\begin{tabular}{|*{17}{c|}}
+\toprule
+	\textbf{PIN} & 2 & 1 & 23 & 22 & 21 & 20 & 19 & 18 & 9 & 10 & 11 & 13 & 7 & 16 & 15 & 17 \\
+	\midrule
+Active-low & $\overline{\mathrm{A\textsubscript{0}}}$ & $\overline{\mathrm{B\textsubscript{0}}}$ & $\overline{\mathrm{A\textsubscript{1}}}$ & $\overline{\mathrm{B\textsubscript{1}}}$ & $\overline{\mathrm{A\textsubscript{2}}}$ & $\overline{\mathrm{B\textsubscript{2}}}$ & $\overline{\mathrm{A\textsubscript{3}}}$ & $\overline{\mathrm{B\textsubscript{3}}}$ & $\overline{\mathrm{F\textsubscript{0}}}$ & $\overline{\mathrm{F\textsubscript{1}}}$ & $\overline{\mathrm{F\textsubscript{2}}}$ & $\overline{\mathrm{F\textsubscript{3}}}$ & C\textsubscript{n} & C\textsubscript{n+4} & $\overline{\mathrm{P}}$ & $\overline{\mathrm{G}}$ \\
+Active-high & A\textsubscript{0} & B\textsubscript{0} & A\textsubscript{1} & B\textsubscript{1} & A\textsubscript{2} & B\textsubscript{2} & A\textsubscript{3} & B\textsubscript{3} & F\textsubscript{0} & F\textsubscript{1} & F\textsubscript{2} & F\textsubscript{3} & $\overline{\mathrm{C\textsubscript{n}}}$ & $\overline{\mathrm{C\textsubscript{n+4}}}$ & X & Y \\
+	\bottomrule
+\end{tabular}
+	\caption{\rl{جدول مقادیر خروجی}}
+\end{table}
+\end{LTR}
+\end{latin}
+
+
+\subsection{پاسخ سوال 4}
+پایه \engr{$\overline{\mathrm{C\textsubscript{n+4}}}$} رقم نقلی تولید شده در جمع دو بیت آخر (\engb{MSB}) را به ما می دهد. از این پایه برای گسترش واحد محاسه و منطق (\engb{ALU}) به تعداد بیت های بیشتر استفاده می کنیم، در واقع اگر بخواهیم یک \engb{ALU} 5 بیتی یا بیشتر از آن را بسازیم باید از چند تراشه \engr{74181} استفاده کنیم که این پایه به عنوان ورودی رقم نقلی به پایه \engr{$\overline{\mathrm{C\textsubscript{n}}}$} تراشه های دیگر داده میشود.\\
+پایه‌های \engr{$\overline{\mathrm{P}}$} و \engr{$\overline{\mathrm{G}}$} برای حالتی کاربرد دارند ک بخواهیم محاسبات را به کمک جمع کننده از نوع \textbf{\engr{CLA} - \engb{Carry Look Ahead}} انجام دهیم. در این حالت از یک یا چند تراشه \engr{74182} کمکی استفاده میکنیم تا با ترکیب دو تراشه با هم بتوان یک واحد محاسبه و منطق با تاخیر حداقلی بسازیم.
+
+\subsection{پاسخ سوال 5}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{images/8bit_diagram.jpg}
+    \caption{بلاک دیاگرام برای ساخت \engb{ALU} 8 بیتی}
+    \label{fig:74181}
+\end{figure}
+\vspace*{0.5cm}
+اصلی ترین نکته این است که رقم نقلی \engb{C4} تراشه اول را باید به عنوان رقم نقلی ورودی به تراشه دوم بدهیم.\\
+خطوط انتخاب (\engb{Select}) ها باید به هر دو تراشه به صورت یکسان متصل شوند، همچنین خط \engb{M} نیز باید میان هر دو مشترک باشد.\\
+
+\pagebreak
+\section{توضیح 74181 IC}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/74181_Pinouts.jpg}
+    \caption{نمایی از پایه های 74181 IC}
+    \label{fig:74181}
+\end{figure}
+\vspace*{0.1cm}
+در واقع این \engb{IC} یک واحد محاسبه و منطق (\engb{ALU}) است به این معنا که قادر است تعدادی عمل منطقی و نیز تعدادی عمل حسابی رو انجام دهد.\\\\
+در صورتی که پایه \engb{M = 1} باشد یعنی قصد داریم که یک عمل منطقی را انجام دهیم و در صورتی که \engb{M = 0} باشد یعنی میخواهیم یک عمل حسابی را انجام بدهیم.\\\\
+در حالتی که \engb{M = 0} باشد می دانیم که با یک عمل حسابی مواجه هستیم اما برای پی بردن به تابع دقیق خواسته شده باید ورودی \engr{$\overline{\mathrm{C\textsubscript{n}}}$} را نیز مورد بررسی قرار دهیم.\\\\
+این \engb{IC} را می توان به صورت منطق \engb{Active-high} و نیز منطق \engb{Active-low} بکار برد.\\\\
+ \textbf{در این گزارش تمامی توضیحات و آزمایش ها در منطق \engb{Active-high} انجام شده است.}
+\pagebreak
+\section{اتصال قطعات و شماتیک مدار}
+\subsection{شکل اولیه}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{images/Schematic_4bit.pdf}
+    \caption{شماتیک مدار در پروتئوس - \engb{ALU} 4 بیتی}
+    \label{fig:schematic}
+\end{figure}
+
+\subsection{شکل ثانویه (پاسخ سوال 6 - \engb{ALU} 8 بیتی)}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.1\textwidth]{images/Schematic_8bit.pdf}
+    \caption{شماتیک مدار در پروتئوس - \engb{ALU} 8 بیتی}
+    \label{fig:schematic}
+\end{figure}
+
+
+\pagebreak
+\section{نتایج شبیه سازی - \engb{ALU} 4 بیتی}
+\subsection{عمل منطقی}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{images/Run1_Input(Logic).pdf}
+	\caption{ورودی شبیه‌سازی به‌ازای \engr{\textbf{M = 1 , $\overline{\mathrm{C\textsubscript{n}}}$ = 0}}}
+    \label{fig:result1}
+\end{figure}
+در این مثال \engb{A = 11} و \engb{B = 8} است، همچنین مقدار ورودی \engb{Selector} ها برابر با عدد \engb{1} است که به ازای \engr{M = 1} برابر با \textbf{\engb{F = A NOR B}} میشود. (در حالتی که \engr{M = 1} است مقدار \engr{$\overline{\mathrm{C\textsubscript{n}}}$} در تعیین تابع نقشی ندارد)\\
+باید دقت داشت که در اعمال منطقی خروجی \engr{$\overline{\mathrm{C\textsubscript{n+4}}}$} نیز اهمیتی ندارد.\\
+خروجی مورد انتظار عدد \engb{4} است که مطابق با نمایش باینری \engb{LED} های روشن شده در زیر است:
+\vspace*{0.1cm}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.57\textwidth]{images/Run1_Output(Logic).pdf}
+	\caption{خروجی شبیه‌سازی در حالی که انتظار داریم \engr{4} را دریافت کنیم}
+    \label{fig:result2}
+\end{figure}
+
+\pagebreak
+\subsection{عمل حسابی}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{images/Run2_Input.pdf}
+	\caption{ورودی شبیه‌سازی به‌ازای \engr{\textbf{M = 0 , $\overline{\mathrm{C\textsubscript{n}}}$ = 1}}}
+    \label{fig:result1}
+\end{figure}
+در این مثال \engb{A = 12} و \engb{B = 5} است، همچنین مقدار ورودی \engb{Selector} ها برابر با عدد \engb{10} است که به ازای \engr{M = 0} و \engr{$\overline{\mathrm{C\textsubscript{n}}}$ = 1} برابر با \textbf{\engb{F = (A + $\overline{\mathrm{B}}$) PLUS AB}} میشود.\\
+باید دقت کرد که خروجی خط \engr{$\overline{\mathrm{C\textsubscript{n}}}$} از نوع \engb{Active-Low} است به همین دلیل برای مشاهده مقدار آن در منطق \engb{Active-High} در سر راه آن یک گیت \textbf{\engb{NOT}} قرار داده ایم.\\
+نمایش باینری خروجی مورد انتظار در زیر است:
+\vspace*{0.1cm}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/Run2_Output.pdf}
+	\caption{خروجی شبیه‌سازی در حالی که انتظار داریم \engr{18} را دریافت کنیم}
+    \label{fig:result2}
+\end{figure}
+
+\pagebreak
+\section{نتیجه شبیه سازی - \engb{ALU} 8 بیتی}
+\subsection{عمل حسابی}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{images/Run_8bit_Input.pdf}
+	\caption{ورودی شبیه‌سازی به‌ازای \engr{\textbf{M = 0 , $\overline{\mathrm{C\textsubscript{n}}}$ = 1}}}
+    \label{fig:result1}
+\end{figure}
+\vspace*{2cm}
+در این مثال \engb{A = 26} و \engb{B = 173} است، همچنین مقدار ورودی \engb{Selector} ها برابر با عدد \engb{6} است که به ازای \engr{M = 0} و \engr{$\overline{\mathrm{C\textsubscript{n}}}$ = 1} برابر با \textbf{\engb{F = A MINUS B}} میشود.\\\\
+باید دقت داشت که در تفریق کردن چنانچه حاصل منفی شود، خط \engr{C8} اطلاعات درستی به ما نمی دهد و ما در تفسیر نتیجه آنرا نادیده میگیرم. برای تفسیر دقیق تر نتیجه عملیات حسابی و یافتن علامت عدد حاصل شده باید این کار را به کمک خطوط \engr{$\overline{\mathrm{C\textsubscript{n}}}$}، \engr{$\overline{\mathrm{C\textsubscript{n+4}}}$} و \engr{A=B} انجام دهیم.\\\\\\
+خروجی مورد انتظار عدد \engb{-147} است که مطابق با نمایش باینری \engb{LED} های روشن شده در زیر است:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{images/Run_8bit_Output.pdf}
+	\caption{خروجی شبیه‌سازی در حالی که انتظار داریم \engr{-147} را دریافت کنیم}
+    \label{fig:8bit}
+\end{figure}
+
+
+\pagebreak
+\section{نتایج آزمایش عملی}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.86\textwidth]{images/Result1.jpg}
+    \caption{نتیجه آزمایش عملی به ازای \engr{\textbf{S\textsubscript{3}S\textsubscript{2}S\textsubscript{1}S\textsubscript{0}} = 0001}، \engb{A=7}، \engb{B=4}، \engb{M = 1}، \engb{$\overline{\mathrm{C\textsubscript{n}}}$ = 0}}
+    \label{fig:result1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.86\textwidth]{images/Result2.jpg}
+    \caption{نتیجه آزمایش عملی به ازای \engr{\textbf{S\textsubscript{3}S\textsubscript{2}S\textsubscript{1}S\textsubscript{0}} = 0110}، \engb{A=11}، \engb{B=1}، \engb{M = 0}، \engb{$\overline{\mathrm{C\textsubscript{n}}}$ = 1}}
+    \label{fig:result2}
+\end{figure}
+
+\end{document}
