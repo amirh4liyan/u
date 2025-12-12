@@ -1,0 +1,475 @@
+% Optimized XePersian Lab Report Template
+% Lightweight, clean, and efficient for bilingual reports with Persian/English text and images
+
+\documentclass[a4paper,12pt]{article}
+
+% --- Essential Packages ---
+\usepackage[breakable]{tcolorbox}
+\usepackage{minted}
+\usepackage{parskip} % Stop auto-indenting (to mimic markdown behaviour)
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}      % for images
+\usepackage{caption}       % better captions
+\usepackage{subcaption}    % subfigures
+\usepackage{float}         % control figure placement
+\usepackage{booktabs}      % for tables
+\usepackage{hyperref}      % clickable links
+\usepackage{xcolor}        % color support
+\usepackage{fancyhdr}      % headers and footers
+\usepackage{xepersian}     % Persian/English text support
+
+% --- Font Setup ---
+\settextfont{IRANSans.ttf}
+\settextfont[BoldFont={IRANSans_Medium.ttf}]{IRANSans.ttf}
+\setlatintextfont{Times New Roman}
+\setlatintextfont[BoldFont={Times New Roman Bold}]{Times New Roman}
+
+% --- Page Style ---
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\thepage}
+\lhead{\lr{CA LAB Report}}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,      
+	urlcolor=cyan,
+}
+
+% Colors 
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % My Favorite Inverted Colors
+    \definecolor{inverted1}{HTML}{37BBBF}
+    \definecolor{inverted2}{HTML}{D28F4B}
+    \definecolor{inverted3}{HTML}{C673B9}
+    \definecolor{inverted4}{HTML}{0581E5}
+    \definecolor{inverted5}{HTML}{9FBD59}
+    \definecolor{inverted6}{HTML}{FFDA4D}
+
+    % common color for the border for error outputs.
+    \definecolor{outerrorbackground}{HTML}{FFDFDF}
+
+% Exact colors from NB
+    \definecolor{incolor}{HTML}{303F9F}
+    \definecolor{outcolor}{HTML}{D84315}
+    \definecolor{cellborder}{HTML}{161616}
+    \definecolor{mycellborder}{HTML}{303030}
+    \definecolor{cellbackground}{HTML}{FFFFFF}
+    \definecolor{mycellbackground}{HTML}{3F3F3F}
+    \definecolor{mydarkcellbackground}{HTML}{2B2B2B}
+    
+
+    \definecolor{mybackground}{HTML}{000000}
+    \definecolor{mytextcolor}{HTML}{FFFFFF}
+
+
+% --- Basic Formatting ---
+\setlength{\parskip}{0.6em}
+\setlength{\parindent}{0pt}
+\renewcommand{\figurename}{شکل}
+\renewcommand{\tablename}{جدول}
+\definecolor{engblue}{RGB}{0, 80, 180}
+\definecolor{engred}{RGB}{255, 0, 0}
+\definecolor{enggreen}{RGB}{0, 180, 80}
+\definecolor{green}{RGB}{0, 150, 80}
+\definecolor{red}{RGB}{180, 0, 0}
+\newcommand{\engb}[1]{\textcolor{engblue}{\lr{#1}}}
+\newcommand{\engr}[1]{\textcolor{engred}{\lr{#1}}}
+\newcommand{\engg}[1]{\textcolor{green}{\lr{#1}}}
+
+% --- Title Page ---
+\title{\textbf{\lr{Computer Architecture LAB Report}}}  % Lab Report Title
+\author{امیرحسین عالیان \\\lr{4021120017}}
+\date{}
+
+\begin{document}
+
+\maketitle
+\begin{center}
+\textbf{آزمایش چهارم، پنجم و ششم}
+\end{center}
+
+\vspace{1cm}
+\begin{center}
+تاریخ نوشتن توصیف آزمایش‌ها: 24 آبان 1404\\
+\vspace*{0.3cm}
+تاریخ نوشتن تست بنچ آزمایش‌ها: 1 آذر 1404\\
+\vspace*{0.3cm}
+تاریخ تحویل گزارش: 13 آذر 1404
+\end{center}
+\tableofcontents
+\newpage
+
+% ----------------------------
+%   Sections
+% ----------------------------
+\section{آزمایش چهار}
+\subsection{هدف آزمایش}
+در این آزمایش هدف آشنایی با دستورات \engb{VHDL} و همچنین نحوه پیاده سازی مدار به روش \engr{DataFlow} بود.\\
+در این آزمایش وظیفه ما پیاده سازی یک تابع با سه ورودی و دو خروجی بود که جدول درستی آن در زیر آمده است:
+\begin{center}
+	\begin{latin}
+		\begin{LTR}
+			\begin{table}[H]
+				\centering
+				\begin{tabular}{cccccc}
+					\toprule
+					A & B & C & F\textsubscript{1} & F\textsubscript{2} & \\
+					\midrule
+					0 & 0 & 0 & 1 & 1 \\
+					0 & 0 & 1 & 0 & 1 \\ 
+					0 & 1 & 0 & 1 & 0 \\
+					0 & 1 & 1 & 1 & 0 \\
+					\midrule
+					1 & 0 & 0 & 0 & 0 \\
+					1 & 0 & 1 & 0 & 1 \\
+					1 & 1 & 0 & 1 & 0 \\
+					1 & 1 & 1 & 0 & 1 \\
+					\bottomrule
+				\end{tabular}
+				\caption{\rl{جدول درستی تابع مطلوب}}
+				\label{tab:TruthTable}
+			\end{table}
+		\end{LTR}
+	\end{latin}
+\end{center}
+
+ابتدا از طریق جدول کارنو یا روش دلخواه دیگر تابع بولین \engb{F\textsubscript{1}} و \engb{F\textsubscript{2}} بررسی کردیم تا در صورت امکان ساده سازی انجام داده و ساده ترین فرم آن را بدست آوریم.
+\\\textbf{\engb{F\textsubscript{1} = $\overline{\mathrm{A}}$.$\overline{\mathrm{C}}$ + B$\overline{\mathrm{C}}$ + $\overline{\mathrm{A}}$B}}
+\\\textbf{\engb{F\textsubscript{2} = $\overline{\mathrm{A}}$.$\overline{\mathrm{B}}$ + AC}}
+\\\textbf{سپس شروع به نوشتن توصیف سخت افزاری آن می‌کنیم.}
+
+\subsection{توصیف سخت افزار}
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+	\begin{minted}{vhdl}
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
+
+ENTITY FUNCTION_3_TO_2 IS
+    PORT(
+        A, B, C : IN STD_LOGIC;
+        F1, F2  : OUT STD_LOGIC
+    );
+END FUNCTION_3_TO_2;
+
+ARCHITECTURE DataFlow OF FUNCTION_3_TO_2 IS
+BEGIN
+    F1 <= (NOT A AND NOT C) OR (B AND NOT C) OR (NOT A AND B);
+    F2 <= (NOT A AND NOT B) OR (A AND C);
+END DataFlow;
+	\end{minted}
+\end{tcolorbox}
+
+\pagebreak
+\subsection{تست بنچ}
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+	\begin{minted}{vhdl}
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
+
+ENTITY tb_FUNCTION_3_TO_2 IS
+END tb_FUNCTION_3_TO_2;
+
+ARCHITECTURE TestBench OF tb_FUNCTION_3_TO_2 IS
+    SIGNAL a, b, c, f1, f2 : STD_LOGIC;
+BEGIN
+    UUT: ENTITY work.FUNCTION_3_TO_2 PORT MAP (a, b, c, f1, f2);
+    a <= '0',
+         '1' AFTER 4 ns;
+
+    b <= '0',
+         '1' AFTER 2 ns,
+         '0' AFTER 4 ns,
+         '1' AFTER 6 ns;
+
+    c <= '0',
+         '1' AFTER 1 ns,
+         '0' AFTER 2 ns,
+         '1' AFTER 3 ns,
+         '0' AFTER 4 ns,
+         '1' AFTER 5 ns,
+         '0' AFTER 6 ns,
+         '1' AFTER 7 ns,
+         '0' AFTER 8 ns;
+END TestBench;
+	\end{minted}
+\end{tcolorbox}
+
+\subsection{نتیجه تست بنچ}
+\vspace*{0.1cm}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{images/E4_small.png}
+	\caption{در این تست بنچ هر \engb{8} حالت ترکیب باینری ممکن برای \engb{3} بیت ورودی تولید شده است که شکل موج های خروجی  یعنی \engb{F\textsubscript{1}} و \engb{F\textsubscript{2}} مطابق با جدول درستی داده شده است.}
+	\label{fig:E4_small}
+\end{figure}
+
+\pagebreak
+\section{آزمایش پنج}
+\subsection{هدف آزمایش}
+در این آزمایش نیز هدف آشنایی با دستورات \engb{VHDL} و همچنین نحوه پیاده سازی مدار به روش \engr{DataFlow} بود.\\
+در این آزمایش ما یک مالتی‌پلکسر 2 به 1 (\engb{MUX 2x1}) پیاده سازی کردیم که شامل دو ورودی، یک خط کنترلی برای انتخاب و یک خط خروجی بود که جدول درستی آن در زیر آمده است:
+\begin{center}
+	\begin{latin}
+		\begin{LTR}
+			\begin{table}[H]
+				\centering
+				\begin{tabular}{cccc}
+					\toprule
+					S & I\textsubscript{1} & I\textsubscript{0} & Y \\
+					\midrule
+					0 & 0 & 0 & 0 \\
+					0 & 0 & 1 & 1 \\ 
+					0 & 1 & 0 & 0 \\
+					0 & 1 & 1 & 1 \\
+					\midrule
+					1 & 0 & 0 & 0 \\
+					1 & 0 & 1 & 0 \\
+					1 & 1 & 0 & 1 \\
+					1 & 1 & 1 & 1 \\
+					\bottomrule
+				\end{tabular}
+				\caption{\rl{جدول درستی مالتی‌پلکسر}}
+				\label{tab:MuxTruthTable}
+			\end{table}
+		\end{LTR}
+	\end{latin}
+\end{center}
+به سادگی و حتی بدون نیاز به جدول کارنو می‌توان تابع بولین \engb{Y} را بدست آورد که
+ \textbf{\engb{Y = I\textsubscript{0}$\overline{\mathrm{S}}$ + I\textsubscript{1}S}}
+ است.\\
+\textbf{حال شروع به نوشتن توصیف سخت افزاری آن می‌کنیم.}
+
+\subsection{توصیف سخت افزار}
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+	\begin{minted}{vhdl}
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
+
+ENTITY MUX_2_TO_1 IS
+    PORT(
+        I0 : IN STD_LOGIC;
+        I1 : IN STD_LOGIC;
+        S  : IN STD_LOGIC;
+        Y  : OUT STD_LOGIC
+    );
+END MUX_2_TO_1;
+
+ARCHITECTURE DataFlow OF MUX_2_TO_1 IS
+BEGIN
+    Y <= (NOT S AND I0) OR (S AND I1);
+END DataFlow;
+	\end{minted}
+\end{tcolorbox}
+
+\pagebreak
+\subsection{تست بنچ}
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+	\begin{minted}{vhdl}
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
+
+ENTITY tb_MUX_2_TO_1 IS
+END tb_MUX_2_TO_1;
+
+ARCHITECTURE TestBench OF tb_MUX_2_TO_1 IS
+    SIGNAL i0, i1, s, y : STD_LOGIC;
+BEGIN
+    UUT: ENTITY work.MUX_2_TO_1 PORT MAP (i0, i1, s, y); 
+    i0 <= '0',
+          '1' AFTER 1 ns,
+          '0' AFTER 2 ns,
+          '1' AFTER 3 ns,
+          '0' AFTER 4 ns,
+          '1' AFTER 5 ns,
+          '0' AFTER 6 ns,
+          '1' AFTER 7 ns,
+          '0' AFTER 8 ns;
+          
+    i1 <= '0',
+          '1' AFTER 2 ns,
+          '0' AFTER 4 ns,
+          '1' AFTER 6 ns;
+          
+    s  <= '0', 
+          '1' AFTER 4 ns;
+END TestBench;
+	\end{minted}
+\end{tcolorbox}
+
+\subsection{نتیجه تست بنچ}
+\vspace*{0.1cm}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{images/E5_small.png}
+	\caption{در این تست بنچ هر \engb{8} حالت ترکیب باینری ممکن برای \engb{3} بیت ورودی تولید شده است که شکل موج خروجی  یعنی \engb{Y} کاملا مطابق با جدول درستی داده شده است}
+	\label{fig:E5_small}
+\end{figure}
+
+
+\pagebreak
+\section{آزمایش شش}
+\subsection{هدف آزمایش}
+
+در این آزمایش نیز هدف آشنایی با دستورات \engb{VHDL} و همچنین نحوه پیاده سازی عناصر ترتیبی با کمک ساختار \engr{Process} بود.\\
+در این آزمایش ما یک فلیپ فلاپ (\engb{D Flip-flop}) پیاده سازی کردیم که با لبه بالا رونده کلاک ورودی را ذخیره می‌کرد، همچنین شامل یک خط ورودی داده \engb{D} یک خط ورودی آسنکرون \engb{$\overline{\mathrm{reset}}$} در منطق \engb{Active-Low} و دو خط خروجی \engb{Q} و \engb{$\overline{\mathrm{Q}}$} بود.
+\subsection{توصیف سخت افزار}
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\begin{minted}{vhdl}
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
+    
+ENTITY D_FF IS
+    PORT(
+        clk       : IN STD_LOGIC;
+        reset_not : IN STD_LOGIC;        
+        D         : IN STD_LOGIC;
+        Q         : OUT STD_LOGIC;
+        Q_NOT     : OUT STD_LOGIC
+    );
+END D_FF;
+
+ARCHITECTURE Behavioural OF D_FF IS
+BEGIN 
+    PROCESS (clk, reset_not)
+    BEGIN
+        IF reset_not = '0' THEN
+            Q <= '0';
+            Q_NOT <= '1';
+        ELSIF rising_edge(clk) THEN
+            Q <= D;
+            Q_NOT <= NOT D;
+        END IF;
+    END PROCESS;
+END Behavioural;
+\end{minted}
+\end{tcolorbox}
+\vspace*{0.5cm}
+\textbf{نکته: با توجه به ترتیب نوشتن شرط \engb{IF}، در حالتی که خطوط \engb{D} و \engb{$\overline{\mathrm{reset}}$} بخواهند مقادیر متفاوتی را به \engb{Q} انتساب دهند، اولویت با خط \engb{$\overline{\mathrm{reset}}$} خواهد بود و این خط مقدار \engb{Q} را مشخص می‌کند.\\\\}
+
+\textbf{این نحوه پیاده سازی با توجه به اینکه خط \engb{$\overline{\mathrm{reset}}$} از نوع آسنکرون در نظر گرفته شده است یک پیاده سازی معقول است.}
+
+
+\pagebreak
+\subsection{تست بنچ}
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\begin{minted}{vhdl}
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
+
+ENTITY tb_D_FF IS
+END tb_D_FF;
+
+ARCHITECTURE tb OF tb_D_FF IS
+    SIGNAL clk, reset_not, D, Q, Q_NOT : STD_LOGIC;
+BEGIN
+    UUT: ENTITY work.D_FF PORT MAP (clk, reset_not, D, Q, Q_NOT);
+
+    clk <= '0',
+           '1' AFTER 1 ns,
+           '0' AFTER 2 ns,
+           '1' AFTER 3 ns,
+           '0' AFTER 4 ns,
+           '1' AFTER 5 ns,
+           '0' AFTER 6 ns,
+           '1' AFTER 7 ns,
+           '0' AFTER 8 ns;
+           
+    reset_not <= '0',
+                 '1' AFTER 1 ns;
+    D <= '1',
+         '0' AFTER 2 ns,
+         '1' AFTER 5 ns,
+         '0' AFTER 7 ns,
+         '1' AFTER 8 ns;
+END tb;
+\end{minted}
+\end{tcolorbox}
+
+\subsection{نتیجه تست بنچ}
+\vspace*{0.1cm}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{images/E6_small.png}
+	\caption{در این تست تلاش شده چندین وضعیت خاص پوشش داده شوند برای  مثال حالتی که دو خط \engb{D} و \engb{$\overline{\mathrm{reset}}$} تلاش کرده اند که دو مقدار متفاوت را به \engb{Q} بدهند یا حالتی که مقدار \engb{D} تغییر می‌کند اما بدلیل نبود لبه بالا رونده کلاک، این تغییر تا سیکل بعد اعمال نمی‌شود.}
+	\label{fig:E6_small}
+\end{figure}
+
+\subsection{یک تجربه در شبیه سازی این آزمایش}
+در ابتدا کدی برای توصیف سخت افزار این آزمایش نوشته شد که عملکرد خط \engb{$\overline{\mathrm{reset}}$} در یک \engr{Process} و عملکرد خط \engb{D} در یک \engr{Process} دیگر قرار داشت به عبارت دیگر به ازای هر کدام یک \engr{Process} جداگانه نوشته شده بود که منجر به شکل موج زیر می‌شد:
+\vspace*{0.1cm}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{images/E6_X1_small.png}
+	\caption{نتیجه تست بنچ در حالتی که خطوط  \engb{$\overline{\mathrm{reset}}$} و \engb{D} را در \engr{Process} های جداگانه تعریف کرده بودیم.}
+	\label{fig:E6_X1_small}
+\end{figure}
+\vspace*{0.1cm}
+\textbf{پس از تحقیق و بررسی مشخص شد که توصیف عملکرد این دو خط در \engr{Process} های جداکانه کار اشتباهی است زیرا هر دوی آنها به صورت همزمان در تلاش برای انتساب مقدار به خط \engb{Q} بودند. در نتیجه توصیف آنها به یک بلوک \engr{Process} کاهش یافت که همان توصیف نوشته شده در بخش 3.2 است.}
+
+\vspace*{1cm}
+\section{مراحل کامپایل و اجرای شبیه‌سازی در \engb{GHDL}}
+ابتدا باید فایل های \engb{VHDL} تحلیل شوند. این کار را با دستور زیر انجام می‌دهیم:
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+	\begin{minted}{bash}
+ghdl -a design.vhd       #Analysis
+ghdl -a testbench.vhd    #Analysis
+	\end{minted}
+\end{tcolorbox}
+بعد از تحلیل باید \engb{Entity} مربوط به تست‌بنچ را بسازیم:
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+	\begin{minted}{bash}
+ghdl -e testbench_entity_name    #Elaboration
+	\end{minted}
+\end{tcolorbox}
+حالا می‌توان شبیه سازی را اجرا کرد. دستور زیر یک فایل موج با نام \engr{wave.ghw} ایجاد می‌کند.
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+	\begin{minted}{bash}
+ghdl -r testbench_entity_name --wave=wave.ghw    #Run
+	\end{minted}
+\end{tcolorbox}
+مشاهده \engb{waveform} در نرم افزار \engr{gtkwave}:
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+	\begin{minted}{bash}
+gtkwave wave.ghw
+	\end{minted}
+\end{tcolorbox}
+
+\pagebreak
+\section{نرم افزار های مورد استفاده و منابع}
+\textbf{نرم افزار ها}\\
+توصیف کد این آزمایش‌ها در کد ادیتور \textbf{\engb{Vim}} و در محیط سیستم عامل \textbf{\engb{GNU/Linux}} و در توزیع \textbf{\engb{Debian 13}} صورت گرفته است. همچنین کامپایل و شبیه سازی کد توصیف‌ها و تست‌ بنچ‌ها با نرم افزار \textbf{\engb{GHDL Version 6}} و مشاهده موج های شبیه سازی در نرم افزار \textbf{\engb{gtkwave}} انجام شده است.
+
+\vspace*{1cm}
+\textbf{منابع}\\
+1- \href{https://www.allaboutcircuits.com/technical-articles/introduction-sequential-vhdl-statements-VHSIC-hardware-description-language}{پیاده سازی عناصر ترتیبی - allaboutcircuits}\\
+2- \href{https://ghdl-rad.readthedocs.io/en/stable/using/QuickStartGuide.html}{راهنمای سریع کار با نرم افزار GHDL}\\
+3- \href{https://faradandish.com/}{مقاله پیاده سازی سیگنال ریست به صورت آسنکرون و سنکرون - سایت فراد اندیش}
+\end{document}
