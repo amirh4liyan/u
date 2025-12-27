@@ -1,0 +1,540 @@
+% Optimized XePersian Lab Report Template
+% Lightweight, clean, and efficient for bilingual reports with Persian/English text and images
+
+\documentclass[a4paper,12pt]{article}
+
+% --- Essential Packages ---
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}      % for images
+\usepackage{caption}       % better captions
+\usepackage{subcaption}    % subfigures
+\usepackage{float}         % control figure placement
+\usepackage{booktabs}      % for tables
+\usepackage{hyperref}      % clickable links
+\usepackage{xcolor}        % color support
+\usepackage{fancyhdr}      % headers and footers
+\usepackage{xepersian}     % Persian/English text support
+
+% --- Font Setup ---
+\settextfont{IRANSans.ttf}
+\settextfont[BoldFont={IRANSans_Medium.ttf}]{IRANSans.ttf}
+\setlatintextfont{Times New Roman}
+\setlatintextfont[BoldFont={Times New Roman Bold}]{Times New Roman}
+
+% --- Page Style ---
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\thepage}
+\lhead{\lr{LD LAB Report}}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% --- Basic Formatting ---
+\setlength{\parskip}{0.6em}
+\setlength{\parindent}{0pt}
+\renewcommand{\figurename}{شکل}
+\renewcommand{\tablename}{جدول}
+\definecolor{engblue}{RGB}{0, 80, 180}
+\definecolor{engred}{RGB}{255, 0, 0}
+\definecolor{enggreen}{RGB}{0, 180, 80}
+\definecolor{green}{RGB}{0, 150, 80}
+\definecolor{red}{RGB}{180, 0, 0}
+\newcommand{\engb}[1]{\textcolor{engblue}{\lr{#1}}}
+\newcommand{\engr}[1]{\textcolor{engred}{\lr{#1}}}
+\newcommand{\engg}[1]{\textcolor{green}{\lr{#1}}}
+
+% --- Title Page ---
+\title{\textbf{\lr{Logic Design LAB Report}}}  % Lab Report Title
+\author{امیرحسین عالیان \\\lr{4021120017}}
+\date{\today}
+
+\begin{document}
+	
+	\maketitle
+	
+	\vspace{1cm}
+	\tableofcontents
+	\newpage
+	
+	% ----------------------------
+	%   Sections
+	% ----------------------------
+	\section{آزمایش اول}
+	\subsection{هدف آزمایش}
+	
+	هدف این آزمایش، آشنایی و تجربه عملی با تراشه های شامل گیت های منطقی پایه مانند \engb{7404}، \engb{7400} و ... بود.\\
+	
+	\subsection{قطعات و ابزار ها}
+	\begin{latin}
+		\begin{LTR}
+			\begin{table}[h!]
+				\centering
+				\begin{tabular}{llc}
+					\toprule
+					\textbf{Component} & \textbf{Function} & \textbf{Quantity} \\
+					\midrule
+					IC 7404 (or 4069 from CMOS Family) & Hex Inverter & \LR{1} \\
+					IC 7400 (or 4011 from CMOS Family) & Quad 2-Input NAND Gate & \LR{1} \\
+					White LED & Indicate Output of 7404 IC & \LR{1} \\
+					\engg{Green} LED & Indicate Output of 7400 IC & \LR{1} \\
+					Breadboard & Component Placement & \LR{1} \\
+					DC Power Supply & Provides \textbf{\engr{V\textsubscript{CC}}} and \textbf{GND} & \LR{1} \\
+					\bottomrule
+				\end{tabular}
+				\caption{\rl{لیست قطعات مورد استفاده در این آزمایش}}
+				\label{tab:components1}
+			\end{table}
+		\end{LTR}
+	\end{latin}
+	
+	\subsection{شکل داخلی IC ها}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.6\textwidth]{images/ic7404.png}
+		\caption{نمایی از پایه های \engb{7404}}
+		\label{fig:7404}
+	\end{figure}
+	\vspace*{0.1cm}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.6\textwidth]{images/ic7400.png}
+		\caption{نمایی از پایه های \engb{7400}}
+		\label{fig:7400}
+	\end{figure}
+	
+	\subsection{جدول نتایج}
+	\begin{center}
+		\begin{latin}
+			\begin{LTR}
+				\begin{table}[H]
+					\centering
+					\begin{tabular}{cc}
+						\toprule
+						\textbf{Input Logic} & 
+						\textbf{Output Logic} \\
+						\midrule
+						0 & 1 \\
+						1 & 0 \\
+						\bottomrule
+					\end{tabular}
+					\caption{\rl{جدول مقادیر خروجی \engb{7404}}}
+					\label{tab:table7404}
+				\end{table}
+				\begin{table}[H]
+					\centering
+					\begin{tabular}{cc}
+						\toprule
+						\textbf{Input Logic} & 
+						\textbf{Output Logic} \\
+						\midrule
+						0  0 & 1 \\
+						0  1 & 1 \\
+						1  0 & 1 \\
+						1  1 & 0 \\
+						\bottomrule
+					\end{tabular}
+					\caption{\rl{جدول مقادیر خروجی \engb{7400}}}
+					\label{tab:table7400}
+				\end{table}
+			\end{LTR}
+		\end{latin}
+	\end{center}
+	
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	
+	\pagebreak
+	\section{آزمایش دوم}
+	\subsection{هدف آزمایش}
+	
+	هدف این آزمایش، ساخت توابع بولین ساده مانند نیم جمع کننده، تمام جمع کننده و مقایسه کننده بود.\\
+	
+	\subsection{قطعات و ابزار ها}
+	\begin{latin}
+		\begin{LTR}
+			\begin{table}[h!]
+				\centering
+				\begin{tabular}{llc}
+					\toprule
+					\textbf{Component} & \textbf{Function} & \textbf{Quantity} \\
+					\midrule
+					IC 7486 & Quad 2-Input Exclusive-OR Gate & \LR{1} \\
+					IC 7408 & Quad 2-Input AND Gate & \LR{1} \\
+					IC 7485 & 4-Bit Magnitude Comparator & \LR{1} \\
+					White LED & Carry Indicator & \LR{1} \\
+					\engg{Green} LED & Sum Indicator & \LR{1} \\
+					Breadboard & Component Placement & \LR{1} \\
+					DC Power Supply & Provides \textbf{\engr{V\textsubscript{CC}}} and \textbf{GND} & \LR{1} \\
+					\bottomrule
+				\end{tabular}
+				\caption{\rl{لیست قطعات مورد استفاده در این آزمایش}}
+				\label{tab:components2}
+			\end{table}
+		\end{LTR}
+	\end{latin}
+	
+	\subsection{شکل داخلی IC ها}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.6\textwidth]{images/ic7408.png}
+		\caption{نمایی از پایه های \engb{7408}}
+		\label{fig:7408}
+	\end{figure}
+	\vspace*{0.1cm}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.6\textwidth]{images/ic7486.png}
+		\caption{نمایی از پایه های \engb{7486}}
+		\label{fig:7486}
+	\end{figure}
+	
+	\subsection{جدول نتایج}
+	\begin{center}
+		\begin{latin}
+			\begin{LTR}
+				\begin{table}[H]
+					\centering
+					\begin{tabular}{ccc}
+						\toprule
+						\textbf{A  B} & 
+						\textbf{C} &
+						\textbf{S} \\
+						\midrule
+						0  0 & 0 & 0 \\
+						0  1 & 0 & 1 \\
+						1  0 & 0 & 1 \\
+						1  1 & 1 & 0 \\
+						\bottomrule
+					\end{tabular}
+					\caption{\rl{جدول مقادیر خروجی نیم جمع کننده}}
+					\label{tab:tableHalfAdder}
+				\end{table}
+				\begin{table}[H]
+					\centering
+					\begin{tabular}{ccc}
+						\toprule
+						\textbf{ََA  B  Cin} & 
+						\textbf{Cout} & 
+						\textbf{S} \\
+						\midrule
+						0  0  0 & 0 & 0 \\
+						0  0  1 & 0 & 1 \\
+						0  1  0 & 0 & 1 \\
+						0  1  1 & 1 & 0 \\
+						1  0  0 & 0 & 1 \\
+						1  0  1 & 1 & 0 \\
+						1  1  0 & 1 & 0 \\
+						1  1  1 & 1 & 1 \\
+						\bottomrule
+					\end{tabular}
+					\caption{\rl{جدول مقادیر خروجی تمام جمع کننده}}
+					\label{tab:tableFullAdder}
+				\end{table}
+				\begin{table}[H]
+					\centering
+					\begin{tabular}{cccc}
+						\toprule
+						\textbf{ََA  B} & 
+						\textbf{X (A > B)} & 
+						\textbf{Y (A = B)} &
+						\textbf{Z (A < B)} \\
+						\midrule
+						0  0 & 0 & 1 & 0 \\
+						0  1 & 0 & 0 & 1 \\
+						1  0 & 1 & 0 & 0 \\
+						1  1 & 0 & 1 & 0 \\
+						\bottomrule
+					\end{tabular}
+					\caption{\rl{جدول مقادیر خروجی مقایسه کننده تک بیتی}}
+					\label{tab:tableOneBitComparator}
+				\end{table}
+				\begin{table}[H]
+					\centering
+					\begin{tabular}{ccccc}
+						\toprule
+						 \textbf{A\textsubscript{3}A\textsubscript{2}A\textsubscript{1}A\textsubscript{0}} & \textbf{B\textsubscript{3}B\textsubscript{2}B\textsubscript{1}B\textsubscript{0}} & 
+						 \textbf{A>B} &
+						 \textbf{A=B}   & 
+						 \textbf{A<B} \\
+						\midrule
+						1  0  0  0 & 0  0  0  1 & 1 & 0 & 0 \\
+						1  0  0  0 & 1  0  0  0 & 0 & 1 & 0 \\
+						1  0  0  0 & 1  0  0  1 & 0 & 0 & 1 \\
+						\bottomrule
+					\end{tabular}
+					\caption{\rl{جدول مقادیر خروجی مقایسه کننده چهار بیتی (با کمک 7485)}}
+					\label{tab:table7485}
+				\end{table}
+			\end{LTR}
+		\end{latin}
+	\end{center}
+	
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	
+	\pagebreak
+	\section{آزمایش سوم}
+	\subsection{هدف آزمایش}
+	
+	هدف این آزمایش، آشنایی با طرز کار و نمایش اطلاعات در نمایشگر هفت قسمتی (\engb{Seven-Segment}) بود.\\
+	
+	\subsection{قطعات و ابزار ها}
+	\begin{latin}
+		\begin{LTR}
+			\begin{table}[h!]
+				\centering
+				\begin{tabular}{llc}
+					\toprule
+					\textbf{Component} & \textbf{Function} & \textbf{Quantity} \\
+					\midrule
+					IC 4511 & BCD-to-7 segment drivers with four address inputs & \LR{1} \\
+					7-Segment (Common Cathode) & PartNumber: LTS-4801JG & \LR{1} \\
+					Breadboard & Component Placement & \LR{1} \\
+					DC Power Supply & Provides \textbf{\engr{V\textsubscript{CC}}} and \textbf{GND} & \LR{1} \\
+					\bottomrule
+				\end{tabular}
+				\caption{\rl{لیست قطعات مورد استفاده در این آزمایش}}
+				\label{tab:components3}
+			\end{table}
+		\end{LTR}
+	\end{latin}
+	
+	\subsection{شکل داخلی IC ها و سون سگمنت}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\textwidth]{images/7-segment.png}
+		\caption{نمایی از پایه های \engb{7-Segment} کاتد مشترک و آند مشترک}
+		\label{fig:7-segment}
+	\end{figure}
+	\vspace*{0.1cm}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.5\textwidth]{images/ic4511.png}
+		\caption{نمایی از پایه های \engb{4511}}
+		\label{fig:4511}
+	\end{figure}
+	
+	\subsection{جدول نتایج}
+	\begin{center}
+		\begin{latin}
+			\begin{LTR}
+				\begin{table}[H]
+					\centering
+					\begin{tabular}{ccccc}
+						\toprule
+						\textbf{D\textsubscript{3}D\textsubscript{2}D\textsubscript{1}D\textsubscript{0}} & 
+						\textbf{Output} \\
+						\midrule
+						0  0  0  0 & 0 \\
+						0  0  0  1 & 1 \\
+						0  0  1  0 & 2 \\
+						0  0  1  1 & 3 \\
+						0  1  0  0 & 4 \\
+						0  1  0  1 & 5 \\
+						0  1  1  0 & 6 \\
+						0  1  1  1 & 7 \\
+						1  0  0  0 & 8 \\
+						1  0  0  1 & 9 \\
+						1  0  1  0 & Blank \\
+						1  0  1  1 & Blank \\
+						1  1  0  0 & Blank \\
+						1  1  0  1 & Blank \\
+						1  1  1  0 & Blank \\
+						1  1  1  1 & Blank \\
+						\bottomrule
+					\end{tabular}
+					\caption{\rl{جدول مقادیر مشاهده شده روی \engb{7-Segment}}}
+					\label{tab:components}
+				\end{table}
+			\end{LTR}
+		\end{latin}
+	\end{center}
+	
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	
+	\pagebreak
+	\section{آزمایش چهارم}
+	\subsection{هدف آزمایش}
+	
+	هدف این آزمایش، پیاده سازی جمع و تفریق کننده باینری و جمع کننده \engb{BCD} بود.\\
+	
+	\subsection{قطعات و ابزار ها}
+	\begin{latin}
+		\begin{LTR}
+			\begin{table}[h!]
+				\centering
+				\begin{tabular}{llc}
+					\toprule
+					\textbf{Component} & \textbf{Function} & \textbf{Quantity} \\
+					\midrule
+					IC 7483 & 4-bit binary full adder with fast carry & \LR{3} \\
+					IC 7486 & Quad 2-Input Exclusive-OR Gate & \LR{1} \\
+					IC 7408 & Quad 2-Input AND Gate & \LR{1} \\
+					IC 7432 & Quad 2-Input OR Gate & \LR{1} \\
+					Breadboard & Component Placement & \LR{1} \\
+					DC Power Supply & Provides \textbf{\engr{V\textsubscript{CC}}} and \textbf{GND} & \LR{1} \\
+					\bottomrule
+				\end{tabular}
+				\caption{\rl{لیست قطعات مورد استفاده در این آزمایش}}
+				\label{tab:components4}
+			\end{table}
+		\end{LTR}
+	\end{latin}
+	
+	\subsection{شکل داخلی IC ها}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.6\textwidth]{images/ic7483.png}
+		\caption{نمایی از پایه های \engb{7483}}
+		\label{fig:7483}
+	\end{figure}
+	\vspace*{0.1cm}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.6\textwidth]{images/ic7432.png}
+		\caption{نمایی از پایه های \engb{7432}}
+		\label{fig:7432}
+	\end{figure}
+	
+	\subsection{جدول نتایج}
+	\begin{center}
+		\begin{latin}
+			\begin{LTR}
+				\begin{table}[H]
+					\centering
+					\begin{tabular}{ccccc}
+						\toprule
+						\textbf{M} &
+						\textbf{A\textsubscript{3}A\textsubscript{2}A\textsubscript{1}A\textsubscript{0}} & 
+						\textbf{B\textsubscript{3}B\textsubscript{2}B\textsubscript{1}B\textsubscript{0}} & 
+						\textbf{C\textsubscript{out}} &
+						\textbf{S\textsubscript{3}S\textsubscript{2}S\textsubscript{1}S\textsubscript{0}} \\
+						\midrule
+						0  (ADD) & 1  0  1  0 & 0  1  0  1 & 0 & 1  1  1  1 \\
+						0  (ADD) & 1  0  1  0 & 0  1  1  0 & 1 & 0  0  0  0 \\
+						0  (ADD) & 1  0  1  0 & 1  1  0  0 & 1 & 0  1  1  0 \\
+						1  (SUB) & 1  0  1  0 & 0  1  0  1 & 1 & 0  1  0  1 \\
+						1  (SUB) & 1  0  1  0 & 1  0  1  0 & 1 & 0  0  0  0 \\
+						1  (SUB) & 1  0  1  0 & 1  1  0  0 & 0 & 1  1  1  0 \\
+						\bottomrule
+					\end{tabular}
+					\caption{\rl{جدول نتایج جمع و تفریق کننده \engb{Binary}}}
+					\label{tab:binaryADDandSUB}
+				\end{table}
+				\begin{table}[H]
+					\centering
+					\begin{tabular}{cccc}
+						\toprule
+						\textbf{A\textsubscript{3}A\textsubscript{2}A\textsubscript{1}A\textsubscript{0}} & 
+						\textbf{B\textsubscript{3}B\textsubscript{2}B\textsubscript{1}B\textsubscript{0}} & 
+						\textbf{C\textsubscript{out}} &
+						\textbf{S\textsubscript{3}S\textsubscript{2}S\textsubscript{1}S\textsubscript{0}} \\
+						\midrule
+						1  0  0  0 & 0  0  0  1 & 0 & 1  0  0  1 \\
+						1  0  0  1 & 0  0  1  1 & 1 & 0  0  1  0 \\
+						1  0  0  0 & 1  1  0  0 & 1 & 1  0  1  0 \\
+						\bottomrule
+					\end{tabular}
+					\caption{\rl{جدول نتایج جمع کننده \engb{BCD}}}
+					\label{tab:BCD-Adder}
+				\end{table}
+			\end{LTR}
+		\end{latin}
+	\end{center}
+		
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	
+	\pagebreak
+	\section{آزمایش پنجم}
+	\subsection{هدف آزمایش}
+	
+	هدف این آزمایش، کار با مالتی‌پلکسر و دی‌مالتی‌پلکسر به واسطه تراشه های \engb{74153} و \engb{74155} بود.\\
+	
+	\subsection{قطعات و ابزار ها}
+	\begin{latin}
+		\begin{LTR}
+			\begin{table}[h!]
+				\centering
+				\begin{tabular}{llc}
+					\toprule
+					\textbf{Component} & \textbf{Function} & \textbf{Quantity} \\
+					\midrule
+					IC 74153 & Dual 4 to 1 Multiplexers & \LR{1} \\
+					IC 74155 & Dual 1 To 4 Demultiplexers & \LR{1} \\
+					Breadboard & Component Placement & \LR{1} \\
+					DC Power Supply & Provides \textbf{\engr{V\textsubscript{CC}}} and \textbf{GND} & \LR{1} \\
+					\bottomrule
+				\end{tabular}
+				\caption{\rl{لیست قطعات مورد استفاده در این آزمایش}}
+				\label{tab:components5}
+			\end{table}
+		\end{LTR}
+	\end{latin}
+	
+	\subsection{شکل داخلی IC ها}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\textwidth]{images/ic74153.png}
+		\caption{نمایی از پایه های \engb{74153}}
+		\label{fig:74153}
+	\end{figure}
+	\vspace*{0.1cm}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.57\textwidth]{images/ic74155.png}
+		\caption{نمایی از پایه های \engb{74155}}
+		\label{fig:74155}
+	\end{figure}
+	
+	\subsection{جدول نتایج}
+	\begin{center}
+		\begin{latin}
+			\begin{LTR}
+				\begin{table}[H]
+					\centering
+					\begin{tabular}{ccccc}
+						\toprule
+						\textbf{M} &
+						\textbf{A\textsubscript{3}A\textsubscript{2}A\textsubscript{1}A\textsubscript{0}} & 
+						\textbf{B\textsubscript{3}B\textsubscript{2}B\textsubscript{1}B\textsubscript{0}} & 
+						\textbf{C\textsubscript{out}} &
+						\textbf{S\textsubscript{3}S\textsubscript{2}S\textsubscript{1}S\textsubscript{0}} \\
+						\midrule
+						0  (ADD) & 1  0  1  0 & 0  1  0  1 & 0 & 1  1  1  1 \\
+						0  (ADD) & 1  0  1  0 & 0  1  1  0 & 1 & 0  0  0  0 \\
+						0  (ADD) & 1  0  1  0 & 1  1  0  0 & 1 & 0  1  1  0 \\
+						1  (SUB) & 1  0  1  0 & 0  1  0  1 & 1 & 0  1  0  1 \\
+						1  (SUB) & 1  0  1  0 & 1  0  1  0 & 1 & 0  0  0  0 \\
+						1  (SUB) & 1  0  1  0 & 1  1  0  0 & 0 & 1  1  1  0 \\
+						\bottomrule
+					\end{tabular}
+					\caption{\rl{جدول نتایج جمع و تفریق کننده \engb{Binary}}}
+					\label{tab:binaryADDandSUB}
+				\end{table}
+				\begin{table}[H]
+					\centering
+					\begin{tabular}{cccc}
+						\toprule
+						\textbf{A\textsubscript{3}A\textsubscript{2}A\textsubscript{1}A\textsubscript{0}} & 
+						\textbf{B\textsubscript{3}B\textsubscript{2}B\textsubscript{1}B\textsubscript{0}} & 
+						\textbf{C\textsubscript{out}} &
+						\textbf{S\textsubscript{3}S\textsubscript{2}S\textsubscript{1}S\textsubscript{0}} \\
+						\midrule
+						1  0  0  0 & 0  0  0  1 & 0 & 1  0  0  1 \\
+						1  0  0  1 & 0  0  1  1 & 1 & 0  0  1  0 \\
+						1  0  0  0 & 1  1  0  0 & 1 & 1  0  1  0 \\
+						\bottomrule
+					\end{tabular}
+					\caption{\rl{جدول نتایج جمع کننده \engb{BCD}}}
+					\label{tab:BCD-Adder}
+				\end{table}
+			\end{LTR}
+		\end{latin}
+	\end{center}
+	
+\end{document}
