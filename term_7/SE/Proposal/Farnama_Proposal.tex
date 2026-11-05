@@ -91,7 +91,7 @@
 
 % --- Tables ---
 \captionsetup{font=small, labelfont={bf,color=brand}}
-\captionsetup[table]{position=bottom, skip=6pt}
+\captionsetup[table]{position=top, skip=6pt}
 \arrayrulecolor{brand}
 \setlength{\aboverulesep}{0pt}
 \setlength{\belowrulesep}{0pt}
@@ -126,7 +126,7 @@
 
 % --- Title Page ---
 \title{
-	\includegraphics[width=3cm]{images/KUT-logo.png}\\[0.4cm]
+	\includegraphics[width=4cm]{images/KUT-logo.png}\\[0.01cm]
         {\normalsize دانشگاه صنعتی کرمانشاه}\\[1cm]
         \textbf{پیشنهاد تفصیلی پروژهٔ درس مهندسی نرم‌افزار}\\[0.5cm]
         {\Large \textcolor{accent}{فرنما (\lr{Farnama})}}\\[0.3cm]{\color{accent}\rule{0.35\linewidth}{1pt}}
@@ -200,7 +200,8 @@
 
 {\small
 \begin{table}[H]
-	\centering
+        \centering
+  	\caption{مخزن‌های پروژه}
 	\begin{tablecard}
 	\renewcommand{\arraystretch}{1.6}
 	\rowcolors{2}{white}{rowtint}
@@ -212,7 +213,6 @@
 		\cmd{\textbf{farnama-backend}} & کد سمت سرور & \repolink{farnama-backend} \\
 	\end{tabularx}
 	\end{tablecard}
-	\caption{مخزن‌های پروژه}
 \end{table}
 }
 
@@ -413,6 +413,7 @@
 {\small
 \rowcolors{2}{white}{rowtint}
 \begin{longtable}{H{2.2cm}P{5.8cm}P{6.4cm}}
+        \caption{نیازمندی‌های غیرکارکردی و معیار سنجش آن‌ها}\\
 	\toprule
 	\headrow
 	\thead{حوزه} & \thead{نیازمندی} & \thead{معیار سنجش} \\
@@ -436,10 +437,10 @@
 	نگهداشت‌پذیری & سرور به‌سادگی و به یک شکل روی هر سیستمی راه‌اندازی می‌شود. & کل سرور (\engb{Django} و \engb{PostgreSQL}) با یک دستور \cmd{docker compose up} اجرا می‌شود. \\
 	سازگاری & اپلیکیشن روی بیشتر گوشی‌های اندرویدی اجرا می‌شود. & حداقل نسخهٔ پشتیبانی‌شده اندروید ۸ (\engb{API 26}) است. \\
 	\bottomrule
-        \caption{نیازمندی‌های غیرکارکردی و معیار سنجش آن‌ها}
 \end{longtable}
 }
 
+\newpage
 % ==========================================================
 \section{الزامات عمومی و بیرونی محصول}
 % ==========================================================
@@ -486,6 +487,7 @@
 {\small
 \rowcolors{2}{white}{rowtint}
 \begin{longtable}{H{2.4cm}P{2.8cm}P{5.3cm}P{3.2cm}}
+        \caption{ابزارها و فناوری‌های انتخاب‌شده}\\
 	\toprule
 	\headrow
 	\thead{حوزه} & \thead{انتخاب} & \thead{دلیل و مزیت} & \thead{محدودیت} \\
@@ -511,7 +513,6 @@
 	آزمون & چارچوب آزمون \engb{Django} و \engb{JUnit} & چارچوب‌های پیش‌فرض هر بستر، بدون نیاز به ابزار اضافه. & -- \\
 	مستندات & \engb{LaTeX} (\engb{XeLaTeX} و \engb{xepersian}) & حروف‌چینی دقیق فارسی و نگه‌داری متن مستندات در \engb{Git} همانند کد. & یادگیری آن برای اعضای ناآشنا زمان می‌برد. \\
 	\bottomrule
-        \caption{ابزارها و فناوری‌های انتخاب‌شده}
 \end{longtable}
 }
 
@@ -654,6 +655,7 @@
 {\small
 \rowcolors{2}{white}{rowtint}
 \begin{longtable}{H{3.2cm}P{3.6cm}P{7.2cm}}
+        \caption{مراحل دریافت بازخورد}\\
 	\toprule
 	\headrow
 	\thead{مرحله} & \thead{از چه کسانی} & \thead{چه چیزی ارائه می‌شود} \\
@@ -669,7 +671,6 @@
 	پایان هفتهٔ ۵ (۲۷ آذر) & دبیران انجمن‌ها & نسخهٔ آزمایشی \engp{APK} و صفحهٔ وب، همراه با یک انتخابات آزمایشی میان خود دبیران \\
 	آغاز هفتهٔ ۶ (۲۸ آذر) & کارشناسان معاونت & پنل کارشناسان و سامانهٔ کامل، برای بررسی گردش درخواست‌ها و انتخابات \\
 	\bottomrule
-        \caption{مراحل دریافت بازخورد}
 \end{longtable}
 }
 
